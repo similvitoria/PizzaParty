@@ -1,5 +1,6 @@
 // Carrinho de compras
 let cart = [];
+let currentUser = null;
 
 // Adicionar ao carrinho
 function addToCart(item, price) {
@@ -35,6 +36,83 @@ function loadCart() {
     if (savedCart) {
         cart = JSON.parse(savedCart);
         updateCartCount();
+    }
+}
+
+// Verificar estado de autenticação
+function checkAuthState() {
+    const loggedUser = localStorage.getItem('pizzaPartyUser');
+    if (loggedUser) {
+        currentUser = JSON.parse(loggedUser);
+        updateNavbar();
+        return true;
+    }
+    return false;
+}
+
+// Atualizar navbar com base no estado de autenticação
+function updateNavbar() {
+    const loginLink = document.querySelector('nav ul li a[href="login.html"]');
+    if (!loginLink) return;
+    
+    const parentLi = loginLink.parentElement;
+    
+    if (currentUser) {
+        // Usuário está logado, mostrar dropdown com nome
+        parentLi.innerHTML = `
+            <div class="user-dropdown">
+                <div class="user-dropdown-btn">
+                    <i class="fas fa-user"></i>
+                    <span>${currentUser.nome.split(' ')[0]}</span>
+                </div>
+                <div class="user-dropdown-content">
+                    <a href="perfil.html">Meu Perfil</a>
+                    <a href="pedidos.html">Meus Pedidos</a>
+                    <a href="#" id="logout-btn">Sair</a>
+                </div>
+            </div>
+        `;
+        
+        // Adicionar event listener para o botão de logout
+        document.getElementById('logout-btn').addEventListener('click', function(e) {
+            e.preventDefault();
+            logout();
+        });
+        
+        // Preencher formulário de entrega se estiver na página de checkout
+        if (window.location.pathname.includes('checkout.html')) {
+            preencherFormularioEntrega();
+        }
+    } else {
+        // Usuário não está logado, mostrar link de login
+        parentLi.innerHTML = `<a href="login.html">Login</a>`;
+    }
+}
+
+// Preencher formulário de entrega com dados do usuário logado
+function preencherFormularioEntrega() {
+    if (!currentUser) return;
+    
+    const nameInput = document.getElementById('name');
+    const phoneInput = document.getElementById('phone');
+    
+    if (nameInput && phoneInput) {
+        nameInput.value = currentUser.nome;
+        phoneInput.value = currentUser.telefone;
+    }
+}
+
+// Logout
+function logout() {
+    localStorage.removeItem('pizzaPartyUser');
+    currentUser = null;
+    
+    // Se estiver na página de checkout, redirecionar para login
+    if (window.location.pathname.includes('checkout.html')) {
+        window.location.href = 'login.html?redirect=checkout';
+    } else {
+        // Recarregar a página atual
+        window.location.reload();
     }
 }
 
@@ -94,6 +172,7 @@ function renderCartItems() {
 // Event listeners para botões "Adicionar ao carrinho"
 document.addEventListener('DOMContentLoaded', function() {
     loadCart();
+    checkAuthState();
     renderCartItems();
     initTabs();
     
@@ -118,6 +197,13 @@ document.addEventListener('DOMContentLoaded', function() {
     const continueToPayment = document.getElementById('continue-to-payment');
     if (continueToPayment) {
         continueToPayment.addEventListener('click', function() {
+            // Verificar se usuário está logado
+            if (!checkAuthState()) {
+                // Não está logado, redirecionar para página de login
+                window.location.href = 'login.html?redirect=checkout';
+                return;
+            }
+            
             if (cart.length === 0) {
                 alert('Seu carrinho está vazio. Adicione itens antes de continuar.');
                 return;
@@ -132,8 +218,20 @@ document.addEventListener('DOMContentLoaded', function() {
                 return;
             }
             
-            // Aqui você normalmente enviaria os dados para o servidor
-            // Neste exemplo, apenas redirecionamos para a página de entrega
+            // Salvar informações de entrega
+            const deliveryInfo = {
+                name,
+                address,
+                phone,
+                instructions: document.getElementById('instructions').value,
+                items: cart,
+                total: parseFloat(document.getElementById('total').textContent.replace('$', '')),
+                date: new Date().toISOString()
+            };
+            
+            localStorage.setItem('currentOrder', JSON.stringify(deliveryInfo));
+            
+            // Redirecionar para a página de pagamento/entrega
             window.location.href = 'delivery.html';
         });
     }

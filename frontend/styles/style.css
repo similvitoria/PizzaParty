@@ -483,7 +483,7 @@ nav ul li a.active {
 
 .checkout-content {
     display: grid;
-    grid-template-columns: 1fr 1fr;
+   /* grid-template-columns: 1fr 1fr;*/
     gap: 3rem;
 }
 
@@ -895,4 +895,143 @@ footer {
     .delivery-status::before {
         display: none;
     }
+}
+
+/* Estilos para as páginas de autenticação */
+.auth-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 80vh;
+    padding: 3rem 1rem;
+    background-color: #f9f9f9;
+}
+
+.auth-form-container {
+    width: 100%;
+    max-width: 500px;
+    background-color: white;
+    padding: 2.5rem;
+    border-radius: 10px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+}
+
+.auth-form-container h1 {
+    font-size: 2rem;
+    color: #e74c3c;
+    margin-bottom: 0.5rem;
+}
+
+.auth-form-container p {
+    color: #666;
+    margin-bottom: 2rem;
+}
+
+.btn-full {
+    width: 100%;
+    padding: 12px;
+    font-size: 1.1rem;
+    margin-top: 1rem;
+}
+
+.forgot-password {
+    display: block;
+    text-align: right;
+    font-size: 0.9rem;
+    color: #e74c3c;
+    margin-top: 0.5rem;
+}
+
+.auth-separator {
+    position: relative;
+    text-align: center;
+    margin: 2rem 0;
+}
+
+.auth-separator::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 0;
+    right: 0;
+    height: 1px;
+    background-color: #ddd;
+}
+
+.auth-separator span {
+    position: relative;
+    background-color: white;
+    padding: 0 15px;
+    color: #999;
+}
+
+.auth-alternative {
+    text-align: center;
+}
+
+.auth-alternative p {
+    margin-bottom: 0.5rem;
+}
+
+.auth-alternative a {
+    color: #e74c3c;
+    font-weight: bold;
+}
+
+/* Estilos para o botão de usuário e dropdown */
+.user-dropdown {
+    position: relative;
+    display: inline-block;
+}
+
+.user-dropdown-btn {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    cursor: pointer;
+}
+
+.user-dropdown-content {
+    display: none;
+    position: absolute;
+    right: 0;
+    background-color: white;
+    min-width: 180px;
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+    z-index: 1;
+    border-radius: 5px;
+    overflow: hidden;
+}
+
+.user-dropdown-content a {
+    color: #333;
+    padding: 12px 16px;
+    text-decoration: none;
+    display: block;
+    transition: background-color 0.3s;
+}
+
+.user-dropdown-content a:hover {
+    background-color: #f1f1f1;
+    color: #e74c3c;
+}
+
+.user-dropdown:hover .user-dropdown-content {
+    display: block;
+}
+
+.user-info {
+    display: none;
+}
+
+/* Para telas menores */
+@media (max-width: 576px) {
+    .auth-form-container {
+        padding: 1.5rem;
+    }
+}
+
+#continue-to-payment {
+    display: block;
+    margin: 20px auto; /* top-bottom: 20px, left-right: auto */
 }
