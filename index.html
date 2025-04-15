@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pizza Party - Sua Melhor Pizzaria</title>
+    <link rel="stylesheet" href="styles/style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet"></head>
+<body>
+    <header>
+        <nav>
+            <div class="logo">Pizza Party</div>
+            <ul>
+                <li><a href="index.html">Home</a></li>
+                <li><a href="menu.html">Menu</a></li>
+                <li><a href="#contact">Contato</a></li>
+            </ul>
+            <a href="checkout.html" class="btn">Pedir Agora</a>
+        </nav>
+    </header>
+
+    <section class="hero">
+        <div class="hero-content">
+            <h1>A Festa da Pizza</h1>
+            <h2>Começa Aqui!</h2>
+            <p>Reúna os amigos e a família e aproveite a melhor pizza da cidade.
+                Preparada na hora e entregue quentinha!</p>
+            <a href="menu.html" class="btn">Conhecer Menu</a>
+        </div>
+
+        <!-- Ingredientes flutuantes -->
+        <div class="floating-ingredients">
+            <img src="images/cogumelo.avif" class="floating mushroom" alt="Cogumelo">
+            <img src="images/tomate.avif" class="floating basil" alt="Manjericão">
+            <img src="images/manjericaoDown.avif" class="floating basil2" alt="Manjericão">
+            <img src="images/cogumelo.avif" class="floating cheese" alt="Queijo">
+            <img src="images/manjericao.avif" class="floating pepperoni" alt="Pepperoni">
+            <img src="images/tomateUp.avif" class="floating olive" alt="Azeitona">
+        </div>
+
+        <!-- Pizza principal cortada (apenas parte superior visível) -->
+        <div class="pizza-container">
+            <img src="images/main-pizza.avif" class="main-pizza" alt="Pizza Principal">
+        </div>
+    </section>
+    <section class="featured">
+        <h2>Favoritas da Galera</h2>
+        <p>De combinações clássicas a sabores ousados, essas pizzas estão no topo da nossa lista por um motivo.</p>
+        
+        <div class="pizza-grid">
+            <div class="pizza-card">
+                <img src="images/peperoni.avif" alt="Pizza Margherita" style="width: 70%;">
+                <h3>Pepperoni Popper</h3>
+                <p>Calabresa em dobro, mussarela, molho marinara picante, pimenta vermelha moída, azeitonas pretas</p>
+                <div class="card-footer">
+                    <a href="checkout.html" class="btn">Pedir Agora</a>
+                    <div class="card-price">
+                        <span class="from">a partir de</span>
+                        <span class="price">$12.99</span>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="pizza-card">
+                <img src="images/alho.avif" alt="Pizza Margherita" style="width: 70%;">
+                <h3>Alho e Cebola Caramelizada</h3>
+                <p>Dentes de alho assados, cebolas caramelizadas, mussarela, parmesão, molho Alfredo, salsa fresca</p>
+                <div class="card-footer">
+                    <a href="checkout.html" class="btn">Pedir Agora</a>
+                    <div class="card-price">
+                        <span class="from">a partir de</span>
+                        <span class="price">$12.99</span>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="pizza-card">
+                <img src="images/marguerita.avif" alt="Pizza Margherita" style="width: 70%;">
+                <h3>Pepperoni Popper</h3>
+                <p>Mussarela fresca, tomates maduros, folhas de manjericão, azeite extravirgem, sal marinho, molho marinara</p>
+                <div class="card-footer">
+                    <a href="checkout.html" class="btn">Pedir Agora</a>
+                    <div class="card-price">
+                        <span class="from">a partir de</span>
+                        <span class="price">$12.99</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer id="contact">
+        <div class="footer-content">
+            <div class="footer-section">
+                <h3>Horário de Funcionamento</h3>
+                <p>Segunda a Sexta: 11h - 22h</p>
+                <p>Sábado e Domingo: 11h - 23h</p>
+            </div>
+            <div class="footer-section">
+                <h3>Contato</h3>
+                <p><i class="fas fa-phone"></i> (11) 1234-5678</p>
+                <p><i class="fas fa-envelope"></i> contato@pizzaparty.com</p>
+            </div>
+            <div class="footer-section">
+                <h3>Redes Sociais</h3>
+                <div class="social-icons">
+                    <a href="#"><i class="fab fa-facebook"></i></a>
+                    <a href="#"><i class="fab fa-instagram"></i></a>
+                    <a href="#"><i class="fab fa-whatsapp"></i></a>
+                </div>
+            </div>
+        </div>
+        <div class="copyright">
+            <p>&copy; 2023 Pizza Party. Todos os direitos reservados.</p>
+        </div>
+    </footer>
+
+    <script src="js/script.js"></script>
+</body>
+</html>
