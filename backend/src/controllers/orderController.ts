@@ -6,7 +6,7 @@ import { ZodError } from "zod";
 const orderRepository = new OrderRepository();
 
 export class OrderController {
-    async getAll(req: Request, res: Response) {
+    async getAll(req: Request, res: Response): Promise<any> {
         try {
             const orders = await orderRepository.findAll();
             return res.status(200).json(orders);
@@ -16,7 +16,7 @@ export class OrderController {
         }
     }
 
-    async getById(req: Request, res: Response) {
+    async getById(req: Request, res: Response): Promise<any> {
         const id = Number(req.params.id);
         if (isNaN(id)) {
             return res.status(400).json({ message: 'ID inválido' });
@@ -34,7 +34,7 @@ export class OrderController {
         }
     }
 
-    async create(req: Request, res: Response) {
+    async create(req: Request, res: Response): Promise<any> {
         try {
             const parsed = orderSchema.parse(req.body);
             const newOrder = await orderRepository.create(parsed);
@@ -48,7 +48,7 @@ export class OrderController {
         }
     }
 
-    async update(req: Request, res: Response) {
+    async update(req: Request, res: Response): Promise<any> {
         const id = Number(req.params.id);
         if (isNaN(id)) {
             return res.status(400).json({ message: 'ID inválido' });
@@ -70,7 +70,7 @@ export class OrderController {
         }
     }
 
-    async delete(req: Request, res: Response) {
+    async delete(req: Request, res: Response): Promise<any> {
         const id = Number(req.params.id);
         if (isNaN(id)) {
             return res.status(400).json({ message: 'ID inválido' });

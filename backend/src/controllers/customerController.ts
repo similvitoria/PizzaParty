@@ -6,7 +6,7 @@ import { customerSchema } from "../schemas/customers";
 const customerRepository = new CustomerRepository();
 
 export class CustomerController {
-    async getAll(req: Request, res: Response) {
+    async getAll(req: Request, res: Response): Promise<any> {
         try {
             const customers = await customerRepository.findAll();
             return res.status(200).json(customers);
@@ -16,7 +16,7 @@ export class CustomerController {
         }
     }
 
-    async getById(req: Request, res: Response) {
+    async getById(req: Request, res: Response): Promise<any> {
         const id = Number(req.params.id);
         if (isNaN(id)) {
             return res.status(400).json({ message: 'ID inválido' });
@@ -34,7 +34,7 @@ export class CustomerController {
         }
     }
 
-    async create(req: Request, res: Response) {
+    async create(req: Request, res: Response): Promise<any> {
         try {
             const parsed = customerSchema.parse(req.body);
             const newCustomer = await customerRepository.create(parsed);
