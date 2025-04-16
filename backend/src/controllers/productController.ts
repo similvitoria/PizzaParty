@@ -2,32 +2,33 @@ import { Request, Response } from "express";
 
 import { ZodError } from "zod";
 import { ProductRepository } from "../repositories/productRepository";
+import { Product } from "../schemas/product";
 
 const productRepository = new ProductRepository();
 
-export class OrderController {
-    async getAll(req: Request, res: Response) {
+export class ProductController {
+    async getAll(req: Request, res: Response): Promise<any> {
         try {
-            const orders = await productRepository.findAll();
-            return res.status(200).json(orders);
+            const products = await productRepository.findAll();
+            return res.status(200).json(products);
         } catch (error) {
             console.error('Erro ao buscar produtos:', error);
             return res.status(500).json();
         }
     }
 
-    async getById(req: Request, res: Response) {
+    async getById(req: Request, res: Response): Promise<any> {
         const id = Number(req.params.id);
         if (isNaN(id)) {
             return res.status(400).json({ message: 'ID inválido' });
         }
 
         try {
-            const order = await productRepository.findById(id);
-            if (!order) {
+            const product = await productRepository.findById(id);
+            if (!product) {
                 return res.status(404).json({ message: 'produto não encontrado' });
             }
-            return res.status(200).json(order);
+            return res.status(200).json(product);
         } catch (error) {
             console.error('Erro ao buscar produto:', error);
             return res.status(500).json();
