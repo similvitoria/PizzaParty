@@ -1,3 +1,4 @@
+import { log } from "console";
 import pool from "../database";
 import { Order } from "../schemas/order";
 
@@ -26,6 +27,13 @@ export class OrderRepository {
         const order: Order = await this.findById(id);
         if(!order) return null;
 
+        console.log(order);
+        console.log();
+        console.log(data);
+        
+        
+        
+
         const result = await pool.query(
             `UPDATE public.orders SET 
                 customer_id = $1,
@@ -36,10 +44,10 @@ export class OrderRepository {
             WHERE id = $6`,
             [
                 data.customer_id ?? order.customer_id,
-                data.order_date ?? order.order_date,
-                data.product_ids ?? order.product_ids,
-                data.status ?? order.status,
                 data.total_price ?? order.total_price,
+                data.order_date ?? order.order_date,
+                data.status ?? order.status,
+                data.product_ids ?? order.product_ids,
                 id
             ]
         );
