@@ -122,15 +122,42 @@ document.addEventListener('DOMContentLoaded', function() {
                 alert('Seu carrinho está vazio. Adicione itens antes de continuar.');
                 return;
             }
+            const customerData = {
+                name: document.getElementById('name').value,
+                email: document.getElementById('email').value,
+                address: document.getElementById('address').value,
+                phone: document.getElementById('phone').value,
+            }
+
+            console.log(customerData);
             
-            const name = document.getElementById('name').value;
-            const address = document.getElementById('address').value;
-            const phone = document.getElementById('phone').value;
-            
-            if (!name || !address || !phone) {
+            if (!customerData.name || !customerData.address || !customerData.phone || !customerData.email) {
                 alert('Por favor, preencha todas as informações de entrega.');
                 return;
+            } else {
+
             }
+
+            fetch("https://seu-backend.com/api/customers", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify(customerData)
+            })
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error("Erro ao cadastrar cliente");
+                }
+                return response.json();
+            })
+            .then(data => {
+                alert("Cliente cadastrado com sucesso!");
+                console.log("Resposta do servidor:", data);
+            })
+            .catch(error => {
+                alert("Ocorreu um erro: " + error.message);
+            });
             
             // Aqui você normalmente enviaria os dados para o servidor
             // Neste exemplo, apenas redirecionamos para a página de entrega
