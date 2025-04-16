@@ -71,20 +71,20 @@
         }).addTo(map);
         
         // Adiciona marcadores (exemplo)
-        L.marker([-23.5505, -46.6333]).addTo(map)
+        L.marker([-19.9250, -43.9920]).addTo(map)
             .bindPopup('Pizzaria Party')
             .openPopup();
             
-        L.marker([-23.555, -46.635]).addTo(map)
+        L.marker([-19.9280, -43.9383]).addTo(map)
             .bindPopup('Sua Localização');
             
         // Adiciona rota (simulada)
         const route = L.polyline([
-            [-23.5505, -46.6333],
+            [-19.9250, -43.9920],
             [-23.551, -46.634],
             [-23.552, -46.6345],
             [-23.553, -46.635],
-            [-23.555, -46.635]
+            [-19.9280, -43.9383]
         ], {color: 'red'}).addTo(map);
         
         // Ajusta o zoom para mostrar toda a rota
