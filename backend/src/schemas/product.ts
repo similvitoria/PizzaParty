@@ -5,7 +5,7 @@ export const productSchema = z.object({
   description: z.string().optional(),
   price: z.number().positive('Preço deve ser positivo').max(999.99),
   category: z.string().optional(),
-  image_path: z.string().url('Caminho da imagem inválido').optional(),
+  image_path: z.string(),
 });
 
 export type Product = z.infer<typeof productSchema>;
