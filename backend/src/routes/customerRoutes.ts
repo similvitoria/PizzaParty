@@ -1,6 +1,11 @@
 import { Router } from "express";
 import { CustomerController } from "../controllers/customerController";
 
-const customerRouter = Router();
+const customerRoutes = Router();
+const customerController = new CustomerController();
 
-export default customerRouter;
+customerRoutes.get('/', customerController.getAll)
+customerRoutes.get('/:id', customerController.getById);
+customerRoutes.post('/', customerController.create);
+
+export default customerRoutes;

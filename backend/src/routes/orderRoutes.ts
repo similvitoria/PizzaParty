@@ -1,6 +1,13 @@
 import { Router } from "express";
 import { OrderController } from "../controllers/orderController";
 
-const orderRouter = Router();
+const orderRoutes = Router();
+const orderController = new OrderController();
 
-export default orderRouter;
+orderRoutes.get('/', orderController.getAll);
+orderRoutes.get('/:id', orderController.getById);
+orderRoutes.post('/', orderController.create);
+orderRoutes.put('/:id', orderController.update);
+orderRoutes.delete('/:id', orderController.delete);
+
+export default orderRoutes;

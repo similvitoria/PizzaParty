@@ -1,10 +1,10 @@
 import { Router } from "express";
 import { ProductController } from "../controllers/productController";
 
-const productRouter = Router();
+const productRoutes = Router();
 const productController = new ProductController();
 
-productRouter.get('/', productController.getAll)
-productRouter.get('/:id', productController.getById);
+productRoutes.get('/', productController.getAll)
+productRoutes.get('/:id', productController.getById);
 
-export default productRouter;
+export default productRoutes;
