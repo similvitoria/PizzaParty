@@ -1,269 +1,591 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Menu Completo - Pizza Party</title>
-    <link rel="stylesheet" href="styles/style.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
-</head>
-<body>
+    <link rel="stylesheet" href="styles/style.css" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"
+    />
+  </head>
+  <body>
     <header>
-        <nav>
-            <div class="logo">Pizza Party</div>
-            <ul>
-                <li><a href="index.html">Home</a></li>
-                <li><a href="menu.html">Menu</a></li>
-                <li><a href="#contact">Contato</a></li>
-            </ul>
-            <a href="checkout.html" class="btn">Pedir Agora</a>
-        </nav>
+      <nav>
+        <div class="logo">Pizza Party</div>
+        <ul>
+          <li><a href="index.html">Home</a></li>
+          <li><a href="menu.html">Menu</a></li>
+          <li><a href="#contact">Contato</a></li>
+        </ul>
+        <a href="checkout.html" class="btn">Pedir Agora</a>
+      </nav>
     </header>
 
     <section class="menu-hero">
-        <h1>Nosso Menu Completo</h1>
-        <p>De pizzas saborosas a bebidas refrescantes, temos orgulho em servir pratos preparados com carinho.</p>
-
+      <h1>Nosso Menu Completo</h1>
+      <p>
+        De pizzas saborosas a bebidas refrescantes, temos orgulho em servir
+        pratos preparados com carinho.
+      </p>
     </section>
 
     <section class="menu-categories">
-        <div class="category-nav">
-            <button class="tab-btn active" data-tab="pizzas">Pizzas</button>
-            <button class="tab-btn" data-tab="pastas">Massas</button>
-            <button class="tab-btn" data-tab="sides">Acompanhamentos</button>
-            <button class="tab-btn" data-tab="desserts">Sobremesas</button>
-            <button class="tab-btn" data-tab="drinks">Bebidas</button>
-        </div>
+      <div class="category-nav">
+        <button class="tab-btn active" data-tab="pizzas">Pizzas</button>
+        <button class="tab-btn" data-tab="pastas">Massas</button>
+        <button class="tab-btn" data-tab="sides">Acompanhamentos</button>
+        <button class="tab-btn" data-tab="desserts">Sobremesas</button>
+        <button class="tab-btn" data-tab="drinks">Bebidas</button>
+      </div>
 
-        <!-- Seção de Pizzas -->
-        <div class="menu-section active-tab" id="pizzas">
-            <h2>Pizzas</h2>
-            <p>Da simplicidade clássica de uma tradicional Margherita à indulgência sofisticada de criações com óleo de trufa, combinamos com maestria o melhor do charme do velho mundo com a inovação culinária moderna.</p>
+      <!-- Seção de Pizzas -->
+      <div class="menu-section active-tab" id="pizzas">
+        <h2>Pizzas</h2>
+        <p>
+          Da simplicidade clássica de uma tradicional Margherita à indulgência
+          sofisticada de criações com óleo de trufa, combinamos com maestria o
+          melhor do charme do velho mundo com a inovação culinária moderna.
+        </p>
 
-            <div class="menu-items">
-                <div class="menu-item">
-                    <h3>Pepperoni Popper <span class="price">$14.99</span></h3>
-                    <p>Dupla camada de pepperoni, mussarela, molho marinara picante, pimenta vermelha moída, azeitonas pretas</p>
-                    <button class="add-to-cart" data-item="Pepperoni Popper" data-price="14.99">Adicionar</button>
-                </div>
-                
-                <div class="menu-item">
-                    <h3>Garlic Supreme <span class="price">$13.99</span></h3>
-                    <p>Dentes de alho assados, cebolas caramelizadas, mussarela, parmesão, molho Alfredo, salsinha fresca</p>
-                    <button class="add-to-cart" data-item="Garlic Supreme" data-price="13.99">Adicionar</button>
-                </div>
-                
-                <div class="menu-item">
-                    <h3>Margarita Muse <span class="price">$12.99</span></h3>
-                    <p>Mussarela fresca, tomates maduros, folhas de manjericão, azeite extra virgem, sal marinho, molho marinara</p>
-                    <button class="add-to-cart" data-item="Margarita Muse" data-price="12.99">Adicionar</button>
-                </div>
-                
-                <div class="menu-item">
-                    <h3>Quatro Queijos <span class="price">$15.99</span></h3>
-                    <p>Mussarela, provolone, parmesão, gorgonzola, tomate seco, orégano</p>
-                    <button class="add-to-cart" data-item="Quatro Queijos" data-price="15.99">Adicionar</button>
-                </div>
-                
-                <div class="menu-item">
-                    <h3>Calabresa Especial <span class="price">$13.99</span></h3>
-                    <p>Calabresa artesanal, cebola, azeitonas, mussarela, molho de tomate</p>
-                    <button class="add-to-cart" data-item="Calabresa Especial" data-price="13.99">Adicionar</button>
-                </div>
+        <div class="menu-items">
+          <div class="menu-item">
+            <div class="menu-item-header">
+              <h3>Pepperoni Popper</h3>
+              <span class="price">$14.99</span>
             </div>
-        </div>
+            <image
+              src="images/pepperoni_popper.avif"
+              alt="Pizza Margherita"
+              class="menu-image"
+              width="70%;"
+            ></image>
+            <p>
+              Dupla camada de pepperoni, mussarela, molho marinara picante,
+              pimenta vermelha moída, azeitonas pretas
+            </p>
+            <button
+              class="add-to-cart"
+              data-item="Pepperoni Popper"
+              data-price="14.99"
+            >
+              Adicionar
+            </button>
+          </div>
 
-        <!-- Seção de Massas -->
-        <div class="menu-section" id="pastas">
-            <h2>Massas</h2>
-            <p>Nossas massas são preparadas artesanalmente com os melhores ingredientes, garantindo um sabor autêntico e inesquecível.</p>
-            
-            <div class="menu-items">
-                <div class="menu-item">
-                    <h3>Spaghetti Carbonara <span class="price">$16.99</span></h3>
-                    <p>Spaghetti, bacon, ovos, queijo parmesão, pimenta do reino, creme de leite</p>
-                    <button class="add-to-cart" data-item="Spaghetti Carbonara" data-price="16.99">Adicionar</button>
-                </div>
-                
-                <div class="menu-item">
-                    <h3>Penne ao Molho Pesto <span class="price">$15.50</span></h3>
-                    <p>Penne, molho pesto (manjericão, alho, pinoli, azeite), tomate cereja, queijo grana padano</p>
-                    <button class="add-to-cart" data-item="Penne ao Molho Pesto" data-price="15.50">Adicionar</button>
-                </div>
-                
-                <div class="menu-item">
-                    <h3>Ravioli de Queijo <span class="price">$17.99</span></h3>
-                    <p>Ravioli recheado com ricota e noz-moscada, molho de tomate fresco, manjericão</p>
-                    <button class="add-to-cart" data-item="Ravioli de Queijo" data-price="17.99">Adicionar</button>
-                </div>
-                
-                <div class="menu-item">
-                    <h3>Fettuccine Alfredo <span class="price">$16.50</span></h3>
-                    <p>Fettuccine, molho cremoso de parmesão, manteiga, creme de leite, noz-moscada</p>
-                    <button class="add-to-cart" data-item="Fettuccine Alfredo" data-price="16.50">Adicionar</button>
-                </div>
+          <div class="menu-item">
+            <div class="menu-item-header">
+              <h3>Garlic Supreme</h3>
+              <span class="price">$13.99</span>
             </div>
-        </div>
+            <image
+              src="images/garlic_supreme.avif"
+              alt="Pizza Margherita"
+              class="menu-image"
+              width="70%;"
+            ></image>
+            <p>
+              Dentes de alho assados, cebolas caramelizadas, mussarela,
+              parmesão, molho Alfredo, salsinha fresca
+            </p>
+            <button
+              class="add-to-cart"
+              data-item="Garlic Supreme"
+              data-price="13.99"
+            >
+              Adicionar
+            </button>
+          </div>
 
-        <!-- Seção de Acompanhamentos -->
-        <div class="menu-section" id="sides">
-            <h2>Acompanhamentos</h2>
-            <p>Os acompanhamentos perfeitos para complementar sua experiência gastronômica.</p>
-            
-            <div class="menu-items">
-                <div class="menu-item">
-                    <h3>Pão de Alho <span class="price">$8.99</span></h3>
-                    <p>Pão italiano com manteiga de alho assada, queijo parmesão e salsinha</p>
-                    <button class="add-to-cart" data-item="Pão de Alho" data-price="8.99">Adicionar</button>
-                </div>
-                
-                <div class="menu-item">
-                    <h3>Bolinho de Bacalhau (6 un) <span class="price">$12.99</span></h3>
-                    <p>Bolinho crocante de bacalhau desfiado com batata e temperos especiais</p>
-                    <button class="add-to-cart" data-item="Bolinho de Bacalhau (6 un)" data-price="12.99">Adicionar</button>
-                </div>
-                
-                <div class="menu-item">
-                    <h3>Batata Frita Especial <span class="price">$9.50</span></h3>
-                    <p>Batata rústica frita, bacon crocante, queijo cheddar derretido, cebolinha</p>
-                    <button class="add-to-cart" data-item="Batata Frita Especial" data-price="9.50">Adicionar</button>
-                </div>
-                
-                <div class="menu-item">
-                    <h3>Salada Caesar <span class="price">$10.99</span></h3>
-                    <p>Alface romana, croutons, queijo parmesão, molho Caesar tradicional</p>
-                    <button class="add-to-cart" data-item="Salada Caesar" data-price="10.99">Adicionar</button>
-                </div>
+          <div class="menu-item">
+            <div class="menu-item-header">
+              <h3>Margarita Muse</h3>
+              <span class="price">$12.99</span>
             </div>
-        </div>
+            <image
+              src="images/marguerita_muse.avif"
+              alt="Pizza Margherita"
+              class="menu-image"
+              width="70%;"
+            ></image>
+            <p>
+              Mussarela fresca, tomates maduros, folhas de manjericão, azeite
+              extra virgem, sal marinho, molho marinara
+            </p>
+            <button
+              class="add-to-cart"
+              data-item="Margarita Muse"
+              data-price="12.99"
+            >
+              Adicionar
+            </button>
+          </div>
 
-        <!-- Seção de Sobremesas -->
-        <div class="menu-section" id="desserts">
-            <h2>Sobremesas</h2>
-            <p>Finalize sua refeição com nossas deliciosas sobremesas preparadas diariamente.</p>
-            
-            <div class="menu-items">
-                <div class="menu-item">
-                    <h3>Brownie com Sorvete <span class="price">$11.99</span></h3>
-                    <p>Brownie de chocolate quente com sorvete de baunilha e calda de chocolate</p>
-                    <button class="add-to-cart" data-item="Brownie com Sorvete" data-price="11.99">Adicionar</button>
-                </div>
-                
-                <div class="menu-item">
-                    <h3>Tiramisù <span class="price">$13.50</span></h3>
-                    <p>Clássico tiramisù italiano com café, mascarpone e cacau em pó</p>
-                    <button class="add-to-cart" data-item="Tiramisù" data-price="13.50">Adicionar</button>
-                </div>
-                
-                <div class="menu-item">
-                    <h3>Cheesecake de Frutas Vermelhas <span class="price">$12.99</span></h3>
-                    <p>Cheesecake cremosa com calda de frutas vermelhas frescas</p>
-                    <button class="add-to-cart" data-item="Cheesecake de Frutas Vermelhas" data-price="12.99">Adicionar</button>
-                </div>
-                
-                <div class="menu-item">
-                    <h3>Mousse de Chocolate <span class="price">$9.99</span></h3>
-                    <p>Mousse cremosa de chocolate meio amargo com raspas de chocolate</p>
-                    <button class="add-to-cart" data-item="Mousse de Chocolate" data-price="9.99">Adicionar</button>
-                </div>
+          <div class="menu-item">
+            <div class="menu-item-header">
+              <h3>Quatro Queijos</h3>
+              <span class="price">$15.99</span>
             </div>
-        </div>
+            <image
+              src="images/quatro_queijos.avif"
+              alt="Pizza Margherita"
+              class="menu-image"
+              width="70%;"
+            ></image>
+            <p>
+              Mussarela, provolone, parmesão, gorgonzola, tomate seco, orégano
+            </p>
+            <button
+              class="add-to-cart"
+              data-item="Quatro Queijos"
+              data-price="15.99"
+            >
+              Adicionar
+            </button>
+          </div>
 
-        <!-- Seção de Bebidas -->
-        <div class="menu-section" id="drinks">
-            <h2>Bebidas</h2>
-            <p>Refresque-se com nossa seleção de bebidas artesanais e tradicionais.</p>
-            
-            <div class="menu-items">
-                <div class="menu-item">
-                    <h3>Refrigerante (Lata) <span class="price">$2.50</span></h3>
-                    <p>Coca-Cola, Pepsi, Guaraná, Fanta</p>
-                    <button class="add-to-cart" data-item="Refrigerante (Lata)" data-price="2.50">Adicionar</button>
-                </div>
-                
-                <div class="menu-item">
-                    <h3>Suco Natural (500ml) <span class="price">$5.50</span></h3>
-                    <p>Laranja, Maracujá, Limão, Abacaxi com Hortelã</p>
-                    <button class="add-to-cart" data-item="Suco Natural (500ml)" data-price="5.50">Adicionar</button>
-                </div>
-                
-                <div class="menu-item">
-                    <h3>Água Mineral (500ml) <span class="price">$2.00</span></h3>
-                    <p>Com ou sem gás</p>
-                    <button class="add-to-cart" data-item="Água Mineral (500ml)" data-price="2.00">Adicionar</button>
-                </div>
-                
-                <div class="menu-item">
-                    <h3>Cerveja Artesanal (355ml) <span class="price">$7.99</span></h3>
-                    <p>Seleção de cervejas locais (IPA, Pilsen, Weiss)</p>
-                    <button class="add-to-cart" data-item="Cerveja Artesanal (355ml)" data-price="7.99">Adicionar</button>
-                </div>
-                
-                <div class="menu-item">
-                    <h3>Vinho da Casa (Taça) <span class="price">$9.50</span></h3>
-                    <p>Tinto ou branco - seleção especial</p>
-                    <button class="add-to-cart" data-item="Vinho da Casa (Taça)" data-price="9.50">Adicionar</button>
-                </div>
+          <div class="menu-item">
+            <div class="menu-item-header">
+              <h3>Calabresa Especial</h3>
+              <span class="price">$13.99</span>
             </div>
+            <image
+              src="images/quatro_queijos.avif"
+              alt="Pizza Margherita"
+              class="menu-image"
+              width="70%;"
+            ></image>
+            <p>
+              Calabresa artesanal, cebola, azeitonas, mussarela, molho de tomate
+            </p>
+            <button
+              class="add-to-cart"
+              data-item="Calabresa Especial"
+              data-price="13.99"
+            >
+              Adicionar
+            </button>
+          </div>
         </div>
+      </div>
+
+      <!-- Seção de Massas -->
+      <div class="menu-section" id="pastas">
+        <h2>Massas</h2>
+        <p>
+          Nossas massas são preparadas artesanalmente com os melhores
+          ingredientes, garantindo um sabor autêntico e inesquecível.
+        </p>
+
+        <div class="menu-items">
+          <div class="menu-item">
+            <div class="menu-item-header">
+              <h3>Primavera Veggie</h3>
+              <span class="price">$16.99</span>
+            </div>
+            <image
+              src="images/veggie_primavera.avif"
+              alt="Veggie Primavera"
+              class="menu-image"
+              width="70%;"
+            ></image>
+            <p>
+              Espaguete, vegetais da estação (abobrinha, pimentão, brócolis,
+              tomate cereja), alho, azeite, parmesão
+            </p>
+            <button
+              class="add-to-cart"
+              data-item="Primavera Veggie"
+              data-price="16.99"
+            >
+              Adicionar
+            </button>
+          </div>
+
+          <div class="menu-item">
+            <div class="menu-item-header">
+              <h3>Penne ao Molho Pesto</h3>
+              <span class="price">$15.50</span>
+            </div>
+            <image
+              src="images/penne.avif"
+              alt="Penne ao Pesto"
+              class="menu-image"
+              width="70%;"
+            ></image>
+            <p>
+              Penne, molho pesto (manjericão, alho, pinoli, azeite), tomate
+              cereja, queijo grana padano
+            </p>
+            <button
+              class="add-to-cart"
+              data-item="Penne ao Molho Pesto"
+              data-price="15.50"
+            >
+              Adicionar
+            </button>
+          </div>
+
+          <div class="menu-item">
+            <div class="menu-item-header">
+              <h3>Fettuccine Alfredo</h3>
+              <span class="price">$16.50</span>
+            </div>
+            <image
+              src="images/alfredo.avif"
+              alt="Pasta Alfedro"
+              class="menu-image"
+              width="70%;"
+            ></image>
+            <p>
+              Fettuccine, molho cremoso de parmesão, manteiga, creme de leite,
+              noz-moscada
+            </p>
+            <button
+              class="add-to-cart"
+              data-item="Fettuccine Alfredo"
+              data-price="$16.50"
+            >
+              Adicionar
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Seção de Acompanhamentos -->
+      <div class="menu-section" id="sides">
+        <h2>Acompanhamentos</h2>
+        <p>
+          Os acompanhamentos perfeitos para complementar sua experiência
+          gastronômica.
+        </p>
+
+        <div class="menu-items">
+          <div class="menu-item">
+            <div class="menu-item-header">
+              <h3>Pão de Alho</h3>
+              <span class="price">$8.99</span>
+            </div>
+            <image
+              src="images/garlic_bread.avif"
+              alt="Garlic Bread"
+              class="menu-image"
+              width="70%;"
+            ></image>
+            <p>
+              Pão italiano com manteiga de alho assada, queijo parmesão e
+              salsinha
+            </p>
+            <button
+              class="add-to-cart"
+              data-item="Pão de Alho"
+              data-price="$8.99"
+            >
+              Adicionar
+            </button>
+          </div>
+
+          <div class="menu-item">
+            <div class="menu-item-header">
+              <h3>Ceasar Salad</h3>
+              <span class="price">$10.99</span>
+            </div>
+            <image
+              src="images/ceasar_sald.avif"
+              alt="Ceasar Salad"
+              class="menu-image"
+              width="70%;"
+            ></image>
+            <p>
+              Alface romana, croutons, queijo parmesão, molho Caesar tradicional
+            </p>
+            <button
+              class="add-to-cart"
+              data-item="Salada Caesar"
+              data-price="10.99"
+            >
+              Adicionar
+            </button>
+          </div>
+
+          <div class="menu-item">
+            <div class="menu-item-header">
+              <h3>Batata Rústica</h3>
+              <span class="price">$9.50</span>
+            </div>
+            <image
+              src="images/loaded_potato.avif"
+              alt="Batata Rústica"
+              class="menu-image"
+              width="70%;"
+            ></image>
+            <p>
+              Batata rústica frita, bacon crocante, queijo cheddar derretido,
+              cebolinha
+            </p>
+            <button
+              class="add-to-cart"
+              data-item="Batata Frita Especial"
+              data-price="$9.50"
+            >
+              Adicionar
+            </button>
+          </div>
+
+          <div class="menu-item">
+            <div class="menu-item-header">
+              <h3>Sticks Muzzarella - 6 unidades</h3>
+              <span class="price">$7.99</span>
+            </div>
+            <image
+              src="images/muzzarella_sticks.avif"
+              alt="Sticks Muzzarella"
+              class="menu-image"
+              width="70%;"
+            ></image>
+            <p>
+              Palitos de queijo mussarela empanados, molho marinara para
+              mergulhar
+            </p>
+            <button
+              class="add-to-cart"
+              data-item="Sticks Muzzarella"
+              data-price="$7.99"
+            >
+              Adicionar
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Seção de Sobremesas -->
+      <div class="menu-section" id="desserts">
+        <h2>Sobremesas</h2>
+        <p>
+          Finalize sua refeição com nossas deliciosas sobremesas preparadas
+          diariamente.
+        </p>
+
+        <div class="menu-items">
+          <div class="menu-item">
+            <div class="menu-item-header">
+              <h3>Cheesecake de Frutas Vermelhas</h3>
+              <span class="price">$12.99</span>
+            </div>
+            <image
+              src="images/strawberry_cheesecake.avif"
+              alt="Cheesecake de Frutas Vermelhas"
+              class="menu-image"
+              width="70%;"
+            ></image>
+            <p>
+              Palitos de queijo mussarela empanados, molho marinara para
+              mergulhar
+            </p>
+            <button
+              class="add-to-cart"
+              data-item="Cheesecake de Frutas Vermelhas"
+              data-price="$12.99"
+            >
+              Adicionar
+            </button>
+          </div>
+
+          <div class="menu-item">
+            <div class="menu-item-header">
+              <h3>Tiramisu</h3>
+              <span class="price">$17.99</span>
+            </div>
+            <image
+              src="images/tiramisu.avif"
+              alt="Tiramisu"
+              class="menu-image"
+              width="70%;"
+            ></image>
+            <p>Clássico tiramisù italiano com café, mascarpone e cacau em pó</p>
+            <button class="add-to-cart" data-item="Tiramisù" data-price="17.99">
+              Adicionar
+            </button>
+          </div>
+
+          <div class="menu-item">
+            <div class="menu-item-header">
+              <h3>Pizza de Nutella</h3>
+              <span class="price">$20.50</span>
+            </div>
+            <image
+              src="images/nutella_pizza.avif"
+              alt="Pizza de Nutella"
+              class="menu-image"
+              width="70%;"
+            ></image>
+            <p>
+              Massa de pizza, pasta de Nutella, açúcar de confeiteiro, morangos
+              (opcional), chantilly
+            </p>
+            <button
+              class="add-to-cart"
+              data-item="Pizza Nutella"
+              data-price="$20.50"
+            >
+              Adicionar
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Seção de Bebidas -->
+      <div class="menu-section" id="drinks">
+        <h2>Bebidas</h2>
+        <p>
+          Refresque-se com nossa seleção de bebidas artesanais e tradicionais.
+        </p>
+
+        <div class="menu-items">
+          <div class="menu-item">
+            <div class="menu-item-header">
+              <h3>Refrigerante (Lata)</h3>
+              <span class="price">$2.50</span>
+            </div>
+            <p>Coca-Cola, Pepsi, Guaraná, Fanta</p>
+            <button
+              class="add-to-cart"
+              data-item="Refrigerante (Lata)"
+              data-price="2.50"
+            >
+              Adicionar
+            </button>
+          </div>
+
+          <div class="menu-item">
+            <div class="menu-item-header">
+              <h3>Suco Natural (500ml)</h3>
+              <span class="price">$5.50</span>
+            </div>
+            <p>Laranja, Maracujá, Limão, Abacaxi com Hortelã</p>
+            <button
+              class="add-to-cart"
+              data-item="Suco Natural (500ml)"
+              data-price="5.50"
+            >
+              Adicionar
+            </button>
+          </div>
+
+          <div class="menu-item">
+            <div class="menu-item-header">
+              <h3>Água Mineral (500ml)</h3>
+              <span class="price">$2.00</span>
+            </div>
+            <p>Com ou sem gás</p>
+            <button
+              class="add-to-cart"
+              data-item="Água Mineral (500ml)"
+              data-price="2.00"
+            >
+              Adicionar
+            </button>
+          </div>
+
+          <div class="menu-item">
+            <div class="menu-item-header">
+              <h3>Cerveja Artesanal (355ml)</h3>
+              <span class="price">$7.99</span>
+            </div>
+            <p>Seleção de cervejas locais (IPA, Pilsen, Weiss)</p>
+            <button
+              class="add-to-cart"
+              data-item="Cerveja Artesanal (355ml)"
+              data-price="7.99"
+            >
+              Adicionar
+            </button>
+          </div>
+
+          <div class="menu-item">
+            <div class="menu-item-header">
+              <h3>Vinho da Casa (Taça)</h3>
+              <span class="price">$9.50</span>
+            </div>
+            <p>Tinto ou branco - seleção especial</p>
+            <button
+              class="add-to-cart"
+              data-item="Vinho da Casa (Taça)"
+              data-price="9.50"
+            >
+              Adicionar
+            </button>
+          </div>
+        </div>
+      </div>
     </section>
 
     <div class="cart-floating">
-        <a href="checkout.html" class="btn">
-            <i class="fas fa-shopping-cart"></i>
-            <span id="cart-count">0</span> itens
-        </a>
+      <a href="checkout.html" class="btn">
+        <i class="fas fa-shopping-cart"></i>
+        <span id="cart-count">0</span> itens
+      </a>
     </div>
 
     <footer id="contact">
-        <div class="footer-content">
-            <div class="footer-section">
-                <h3>Horário de Funcionamento</h3>
-                <p>Segunda a Sexta: 11h - 22h</p>
-                <p>Sábado e Domingo: 11h - 23h</p>
-            </div>
-            <div class="footer-section">
-                <h3>Contato</h3>
-                <p><i class="fas fa-phone"></i> (11) 1234-5678</p>
-                <p><i class="fas fa-envelope"></i> contato@pizzaparty.com</p>
-            </div>
-            <div class="footer-section">
-                <h3>Redes Sociais</h3>
-                <div class="social-icons">
-                    <a href="#"><i class="fab fa-facebook"></i></a>
-                    <a href="#"><i class="fab fa-instagram"></i></a>
-                    <a href="#"><i class="fab fa-whatsapp"></i></a>
-                </div>
-            </div>
+      <div class="footer-content">
+        <div class="footer-section">
+          <h3>Horário de Funcionamento</h3>
+          <p>Segunda a Sexta: 11h - 22h</p>
+          <p>Sábado e Domingo: 11h - 23h</p>
         </div>
-        <div class="copyright">
-            <p>&copy; 2025 Pizza Party. Todos os direitos reservados.</p>
+        <div class="footer-section">
+          <h3>Contato</h3>
+          <p><i class="fas fa-phone"></i> (11) 1234-5678</p>
+          <p><i class="fas fa-envelope"></i> contato@pizzaparty.com</p>
         </div>
+        <div class="footer-section">
+          <h3>Redes Sociais</h3>
+          <div class="social-icons">
+            <a href="#"><i class="fab fa-facebook"></i></a>
+            <a href="#"><i class="fab fa-instagram"></i></a>
+            <a href="#"><i class="fab fa-whatsapp"></i></a>
+          </div>
+        </div>
+      </div>
+      <div class="copyright">
+        <p>&copy; 2025 Pizza Party. Todos os direitos reservados.</p>
+      </div>
     </footer>
 
-    <script src="js/script.js"></script>
     <script>
-        // Navegação por abas
-        document.addEventListener('DOMContentLoaded', function() {
-            const tabButtons = document.querySelectorAll('.tab-btn');
-            
-            tabButtons.forEach(button => {
-                button.addEventListener('click', function() {
-                    // Remove a classe active de todos os botões e seções
-                    tabButtons.forEach(btn => btn.classList.remove('active'));
-                    document.querySelectorAll('.menu-section').forEach(section => {
-                        section.classList.remove('active-tab');
-                    });
-                    
-                    // Adiciona a classe active ao botão clicado
-                    this.classList.add('active');
-                    
-                    // Mostra a seção correspondente
-                    const tabId = this.getAttribute('data-tab');
-                    document.getElementById(tabId).classList.add('active-tab');
-                });
+      document.addEventListener("DOMContentLoaded", function () {
+        const tabButtons = document.querySelectorAll(".tab-btn"); // Botões das abas
+        const menuSections = document.querySelectorAll(".menu-section"); // Seções do menu
+
+        tabButtons.forEach((button) => {
+          button.addEventListener("click", function () {
+            tabButtons.forEach((btn) => btn.classList.remove("active"));
+            menuSections.forEach((section) => {
+              section.classList.remove("active-tab");
+              section.style.display = "none"; 
             });
+
+            this.classList.add("active");
+
+            const tabId = this.getAttribute("data-tab");
+            const targetSection = document.getElementById(tabId);
+
+            if (targetSection) {
+              targetSection.classList.add("active-tab");
+              targetSection.style.display = "block"; 
+            } else {
+              console.error(`Seção com ID "${tabId}" não encontrada.`);
+            }
+          });
         });
+
+        const firstTab = document.querySelector(".tab-btn");
+        if (firstTab) {
+          firstTab.click();
+        }
+      });
     </script>
-</body>
+  </body>
 </html>
