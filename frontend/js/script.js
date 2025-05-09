@@ -117,16 +117,37 @@ document.addEventListener('DOMContentLoaded', function() {
     // Botão de continuar para pagamento
     const continueToPayment = document.getElementById('continue-to-payment');
     if (continueToPayment) {
-        continueToPayment.addEventListener('click', function() {
+        continueToPayment.addEventListener('click', function(e) {
+            e.preventDefault();
             if (cart.length === 0) {
                 alert('Seu carrinho está vazio. Adicione itens antes de continuar.');
                 return;
             }
+
+            const info = {
+                products: [
+                    {
+                        id: 1,
+                        name: "Smartphone X",
+                        description: "Última geração com câmera tripla",
+                        category: "Eletrônicos",
+                        image_path: "smartphone_x.jpg",
+                        price: 2999.9		
+                    }
+                ],
+                total_price: 2999.0
+            }
+
             const customerData = {
                 name: document.getElementById('name').value,
                 email: document.getElementById('email').value,
                 address: document.getElementById('address').value,
                 phone: document.getElementById('phone').value,
+            }
+
+            const data = {
+                "customer": customerData,
+                "order": info
             }
 
             console.log(customerData);
@@ -138,12 +159,12 @@ document.addEventListener('DOMContentLoaded', function() {
 
             }
 
-            fetch("https://seu-backend.com/api/customers", {
+            fetch(" http://localhost:3000/api/orders", {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json"
                 },
-                body: JSON.stringify(customerData)
+                body: JSON.stringify(data)
             })
             .then(response => {
                 if (!response.ok) {
@@ -154,6 +175,7 @@ document.addEventListener('DOMContentLoaded', function() {
             .then(data => {
                 alert("Cliente cadastrado com sucesso!");
                 console.log("Resposta do servidor:", data);
+                window.location.href = 'delivery.html';
             })
             .catch(error => {
                 alert("Ocorreu um erro: " + error.message);
@@ -161,7 +183,6 @@ document.addEventListener('DOMContentLoaded', function() {
             
             // Aqui você normalmente enviaria os dados para o servidor
             // Neste exemplo, apenas redirecionamos para a página de entrega
-            window.location.href = 'delivery.html';
         });
     }
 });

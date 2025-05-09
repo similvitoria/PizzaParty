@@ -88,31 +88,5 @@
      </footer>
  
      <script src="js/script.js"></script>
-     <script>
-        document.getElementById('continue-to-payment').addEventListener('click', function() {
-            // Captura os dados do formulário
-            const name = document.getElementById('name').value;
-            const address = document.getElementById('address').value;
-            const phone = document.getElementById('phone').value;
-            const email = document.getElementById('email').value;
-            const instructions = document.getElementById('instructions').value;
-            
-            // Verifica se os campos obrigatórios estão preenchidos
-            if (!name || !address || !phone || !email) {
-                alert('Por favor, preencha todos os campos obrigatórios.');
-                return;
-            }
-            
-            // Salva os dados no localStorage
-            localStorage.setItem('customerName', name);
-            localStorage.setItem('customerAddress', address);
-            localStorage.setItem('customerPhone', phone);
-            localStorage.setItem('customerEmail', email);
-            localStorage.setItem('deliveryInstructions', instructions);
-            
-            // Redireciona para a página de pagamento (por enquanto, vamos direto para delivery)
-            window.location.href = 'delivery.html';
-        });
-    </script>
  </body>
  </html>
