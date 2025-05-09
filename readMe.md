@@ -1,44 +1,48 @@
-# 🍕 Projeto Pizzaria API
+# 🍕 Pizza Party - Sistema Completo
 
-Este projeto consiste em duas APIs distintas que funcionam de forma complementar para a gestão de uma pizzaria, com funcionalidades como controle de clientes, pedidos e produtos, além de integração com o Stripe para pagamentos online.
+## 📋 Visão Geral
 
-## 📁 Estrutura do Projeto
+O **Pizza Party** é um sistema completo de gerenciamento de pizzaria, incluindo:
 
-```
---.env
---.gitignore
---package-lock.json
---package.json
---server.js         # API de pagamentos com Stripe
-src/
-  controllers/      # Controladores de negócio
-  db/
-    --script.db     # Base de dados (provavelmente SQLite)
-  repositories/     # Acesso aos dados
-  routes/           # Rotas das APIs
-  schemas/          # Modelos/tipagem dos dados
-  --database.ts     # Conexão com banco de dados
-  --index.ts        # API principal da pizzaria
---tsconfig.json
-```
+- **Frontend**: Interface moderna para pedidos online  
+- **Backend**: APIs robustas para gestão de dados  
+- **Pagamentos**: Integração com Stripe  
+
+---
 
 ## 🚀 Como Executar o Projeto
 
-### Pré-requisitos
+### ✅ Pré-requisitos
 
-- Node.js (versão recomendada: 18+)
-- npm ou yarn
-- Stripe Key configurada (ver `.env`)
+- Node.js (versão 16 ou superior)  
+- npm ou yarn  
+- PostgreSQL (para o backend)  
+- Conta no Stripe (para pagamentos)  
 
-### Instalação
+---
+
+### 📦 Instalação
+
+#### Backend
 
 ```bash
+git clone <url-do-repositorio>
+cd pizza-party-backend
 npm install
 ```
 
-### Ambiente
+#### Frontend
 
-Crie um arquivo `.env` com o seguinte conteúdo:
+```bash
+cd ../pizza-party-frontend
+npm install
+```
+
+---
+
+### ⚙️ Configuração
+
+#### Backend (`.env`)
 
 ```env
 DB_HOST=localhost
@@ -46,69 +50,183 @@ DB_PORT=5432
 DB_USER=postgres
 DB_PASSWORD=senha123
 DB_NAME=pizzaria
+STRIPE_SECRET_KEY=sua_chave_secreta_do_stripe
 ```
 
-### Executando as APIs
+#### Frontend (`.env`)
 
-**API Principal (TypeScript):**
+```env
+REACT_APP_API_URL=http://localhost:3001
+REACT_APP_STRIPE_API_URL=http://localhost:3000
+REACT_APP_STRIPE_PUBLIC_KEY=sua_chave_publica_do_stripe
+```
+
+---
+
+### ▶️ Execução
+
+#### Backend (em terminais separados):
 
 ```bash
+# API Principal
 npx ts-node src/index.ts
-```
 
-**API de Pagamentos (Stripe):**
-
-```bash
+# API de Pagamentos
 node server.js
 ```
 
-> As duas APIs devem ser executadas simultaneamente em terminais diferentes.
+#### Frontend:
 
-## 🔁 APIs Disponíveis
+```bash
+npm start
+```
 
-### API Principal (`index.ts`)
-Rotas REST para gerenciamento do sistema da pizzaria:
+Acesse: [http://localhost:3000](http://localhost:3000)
 
-- `GET /customers`, `POST /customers`, etc.
-- `GET /orders`, `POST /orders`, etc.
-- `GET /products`, `POST /products`, etc.
+---
 
-As rotas estão organizadas nos arquivos `src/routes/*.ts` com controle e acesso via `controllers/` e `repositories/`.
+## 📂 Estrutura do Projeto
 
-### API de Pagamentos (`server.js`)
-Rota de integração com a Stripe:
+### Backend
 
-#### `POST /create-payment-intent`
-Gera um `PaymentIntent` para processar pagamento.
+```
+.env
+server.js              # API de pagamentos
+src/
+├── controllers/       # Lógica de negócio
+├── db/                # Scripts de banco de dados
+├── repositories/      # Acesso aos dados
+├── routes/            # Definição de rotas
+├── schemas/           # Modelos de dados
+├── database.ts        # Conexão com DB
+└── index.ts           # API principal
+```
 
-**Corpo esperado:**
+### Frontend
+
+```
+public/
+src/
+├── components/        # Componentes reutilizáveis
+├── pages/             # Páginas principais
+├── styles/            # Estilos CSS
+├── utils/             # Funções utilitárias
+├── App.js             # Componente raiz
+└── index.js           # Ponto de entrada
+```
+
+---
+
+## 🔄 Fluxo do Sistema
+
+1. Cliente faz pedido no frontend  
+2. Dados são enviados para a API principal  
+3. Pagamento é processado via API Stripe  
+4. Pedido é registrado no banco de dados  
+5. Cliente acompanha entrega em tempo real  
+
+---
+
+## 🌐 APIs Disponíveis
+
+### API Principal (`http://localhost:3001`)
+
+- `GET /products` - Lista de produtos  
+- `POST /orders` - Cria novo pedido  
+- `GET /customers` - Gerencia clientes  
+
+### API de Pagamentos (`http://localhost:3000`)
+
+- `POST /create-payment-intent` - Processa pagamentos  
+
+Exemplo de corpo da requisição:
+
 ```json
 {
   "amount": 5000,
   "currency": "brl",
-  "customerName": "João da Silva",
+  "customerName": "João Silva",
   "customerEmail": "joao@email.com"
 }
 ```
 
-**Resposta:**
-```json
-{
-  "clientSecret": "pi_XXX_secret_YYY"
-}
-```
+---
 
-## 🧠 Tecnologias Utilizadas
+## 🛠 Tecnologias Utilizadas
 
-- Node.js
-- TypeScript
-- Express
-- Stripe
-- dotenv
-- PostgreSQL
+### Backend
 
-## 📌 Observações
+- Node.js  
+- TypeScript  
+- Express  
+- PostgreSQL  
+- Stripe  
 
-- A API de pagamentos está configurada para usar uma chave fixa do Stripe diretamente no código. Recomenda-se mover para o `.env` por segurança.
-- Há validações robustas nos dados de pagamento, como valor numérico, e-mail e moeda suportada.
-- O projeto está modularizado usando camadas (Controller, Repository, Routes).
+### Frontend
+
+- React.js  
+- HTML5/CSS3  
+- Leaflet.js (mapas)  
+- Font Awesome  
+
+---
+
+## 🛒 Funcionalidades Principais
+
+### Frontend
+
+- Menu interativo por categorias  
+- Carrinho persistente  
+- Checkout em múltiplas etapas  
+- Acompanhamento de entrega em mapa  
+
+### Backend
+
+- CRUD completo de produtos/pedidos/clientes  
+- Validação robusta de dados  
+- Processamento seguro de pagamentos  
+- Modularização por camadas  
+
+---
+
+## 📌 Observações Importantes
+
+### Segurança
+
+- Nunca comite chaves do Stripe ou credenciais de banco  
+- Use sempre HTTPS em produção  
+
+### Desenvolvimento
+
+- O frontend usa `localStorage` para simular carrinho  
+- O backend possui validações completas  
+
+### Produção
+
+- Configure CORS adequadamente  
+- Implemente autenticação para APIs  
+
+---
+
+## 📈 Próximos Passos
+
+- Implementar autenticação JWT  
+- Criar painel administrativo  
+- Adicionar sistema de avaliações  
+- Implementar push notifications  
+
+---
+
+## 🤝 Contribuição
+
+Para contribuir com o projeto:
+
+1. Faça um fork do repositório  
+2. Crie uma branch com sua feature  
+3. Envie um pull request  
+
+---
+
+## 📧 Contato
+
+Para dúvidas ou sugestões, entre em contato com a equipe de desenvolvimento.
