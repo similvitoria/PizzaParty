@@ -189,12 +189,7 @@ Exemplo de corpo da requisição:
 
 ---
 
-## 📌 Observações Importantes
-
-### Segurança
-
-- Nunca comite chaves do Stripe ou credenciais de banco  
-- Use sempre HTTPS em produção  
+## 📌 Observações Importantes 
 
 ### Desenvolvimento
 
