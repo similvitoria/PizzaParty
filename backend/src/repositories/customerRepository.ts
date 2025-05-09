@@ -12,6 +12,11 @@ export class CustomerRepository {
         return result.rows[0];
     }
 
+    async findByEmail(email: string): Promise<Customer> {
+        const result = await pool.query('SELECT * FROM customers WHERE email = $1', [email]);        
+        return result.rows[0];
+    }
+
     async create(data: Customer): Promise<Customer> {
         const {address, email, name, phone} = data;
         const result = await pool.query(
