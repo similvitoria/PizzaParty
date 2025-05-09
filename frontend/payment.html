@@ -1,0 +1,363 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Pagamento - Pizza Party</title>
+  <link rel="stylesheet" href="styles/style.css" />
+  <link
+    rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"
+  />
+  <script src="https://js.stripe.com/v3/"></script>
+  <style>
+    @keyframes spin {
+      to {
+        transform: rotate(360deg);
+      }
+    }
+
+    .hidden {
+      display: none;
+    }
+
+    .stripe-error {
+      color: #fa755a;
+      margin-top: 10px;
+      padding: 10px;
+      border: 1px solid #fa755a;
+      border-radius: 4px;
+      background-color: #fff8f8;
+      display: none;
+      margin-bottom: 15px;
+    }
+
+    .stripe-error.visible {
+      display: block;
+      margin-bottom: 15px;
+    }
+
+    .error-banner {
+      background-color: #ffebee;
+      color: #c62828;
+      padding: 15px;
+      margin-bottom: 20px;
+      border-radius: 4px;
+      border-left: 4px solid #c62828;
+      margin-bottom: 15px;
+    }
+
+    #card-element {
+      padding: 12px;
+      border: 1px solid #e0e0e0;
+      border-radius: 4px;
+      background-color: #fff;
+      margin-bottom: 20px;
+    }
+
+    #submit-payment {
+      width: 100%;
+      padding: 12px;
+      background-color: #4caf50;
+      color: white;
+      border: none;
+      border-radius: 4px;
+      font-size: 16px;
+      cursor: pointer;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    #submit-payment:disabled {
+      background-color: #a5d6a7;
+      cursor: not-allowed;
+    }
+
+    .cart-item {
+      display: flex;
+      justify-content: space-between;
+      padding: 10px 0;
+      border-bottom: 1px solid #eee;
+    }
+
+    .cart-totals {
+      margin-top: 20px;
+    }
+
+    .cart-totals > div {
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: 8px;
+    }
+
+    .total {
+      font-weight: bold;
+      font-size: 1.2em;
+      border-top: 1px solid #ddd;
+      padding-top: 10px;
+      margin-top: 10px;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <nav>
+      <div class="logo">Pizza Party</div>
+      <ul>
+        <li><a href="index.html">Home</a></li>
+        <li><a href="menu.html">Menu</a></li>
+        <li><a href="#contact">Contato</a></li>
+      </ul>
+      <a href="checkout.html" class="btn">Pedir Agora</a>
+    </nav>
+  </header>
+
+  <section class="checkout-container">
+    <div class="checkout-steps">
+      <div class="step">1. Carrinho</div>
+      <div class="step">2. Entrega</div>
+      <div class="step active">3. Pagamento</div>
+      <div class="step">4. Confirmação</div>
+    </div>
+
+    <div class="checkout-content">
+      <div class="cart-summary">
+        <h2>Resumo do Pedido</h2>
+        <div id="cart-items"></div>
+        <div class="cart-totals">
+          <div class="subtotal">
+            <span>Subtotal</span><span id="subtotal">$0.00</span>
+          </div>
+          <div class="delivery-fee">
+            <span>Taxa de Entrega</span><span id="delivery-fee">$3.50</span>
+          </div>
+          <div class="total">
+            <span>Total</span><span id="total">$3.50</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="payment-info">
+        <div id="payment-errors"></div>
+        <h2>Informações de Pagamento</h2>
+        <form id="payment-form">
+          <div id="card-element" class="stripe-card-element"></div>
+          <div id="card-errors" role="alert" class="stripe-error"></div>
+          <button type="submit" id="submit-payment" class="btn">
+            <span id="button-text">Pagar Agora</span>
+          </button>
+        </form>
+      </div>
+    </div>
+  </section>
+
+  <footer id="contact">
+    <div class="footer-content">
+      <div class="footer-section">
+        <h3>Horário de Funcionamento</h3>
+        <p>Segunda a Sexta: 11h - 22h</p>
+        <p>Sábado e Domingo: 11h - 23h</p>
+      </div>
+      <div class="footer-section">
+        <h3>Contato</h3>
+        <p><i class="fas fa-phone"></i> (11) 1234-5678</p>
+        <p><i class="fas fa-envelope"></i> contato@pizzaparty.com</p>
+      </div>
+      <div class="footer-section">
+        <h3>Redes Sociais</h3>
+        <div class="social-icons">
+          <a href="#"><i class="fab fa-facebook"></i></a>
+          <a href="#"><i class="fab fa-instagram"></i></a>
+          <a href="#"><i class="fab fa-whatsapp"></i></a>
+        </div>
+      </div>
+    </div>
+    <div class="copyright">
+      <p>&copy; 2025 Pizza Party. Todos os direitos reservados.</p>
+    </div>
+  </footer>
+
+  <script>
+    // Função para limpar o carrinho
+    function clearCart() {
+      // Limpa o array do carrinho no localStorage
+      localStorage.setItem('cartItems', JSON.stringify([]));
+      
+      // Reseta o total do pedido
+      localStorage.setItem('orderTotal', '0.00');
+      
+      console.log('Carrinho limpo com sucesso');
+    }
+
+    document.addEventListener("DOMContentLoaded", async () => {
+      console.log("Inicializando página de pagamento...");
+
+      // Elemento para exibir erros gerais
+      const paymentErrors = document.getElementById("payment-errors");
+
+      try {
+        const stripe = Stripe(
+          "pk_test_51RMqjBJCdQLzrfYJFJJepqyMeZlnUeTbD0JNiXvgFqh8gYaYyKpaGqsfP7r22OIb30X5cTtKdv5ytxq0G7MBe5Gf00eeXeyxfO"
+        );
+        console.log("Stripe inicializado com sucesso");
+
+        const elements = stripe.elements();
+        const cardElement = elements.create("card", {
+          style: {
+            base: {
+              fontSize: "16px",
+              color: "#32325d",
+              fontFamily: '"Helvetica Neue", Helvetica, sans-serif',
+              fontSmoothing: "antialiased",
+              "::placeholder": { color: "#aab7c4" },
+            },
+            invalid: {
+              color: "#fa755a",
+              iconColor: "#fa755a",
+            },
+          },
+        });
+
+        cardElement.mount("#card-element");
+        console.log("Elemento de cartão montado");
+
+        // Adicionar listener para erros de validação do cartão
+        cardElement.on("change", ({ error }) => {
+          const displayError = document.getElementById("card-errors");
+          if (error) {
+            displayError.textContent = error.message;
+            displayError.classList.add("visible");
+          } else {
+            displayError.textContent = "";
+            displayError.classList.remove("visible");
+          }
+        });
+
+        // Obter dados do localStorage
+        const customerName = localStorage.getItem("customerName");
+        const customerEmail = localStorage.getItem("customerEmail");
+        const orderTotal = parseFloat(localStorage.getItem("orderTotal"));
+        const cartItems = JSON.parse(localStorage.getItem("cartItems"));
+
+        console.log("Dados carregados do localStorage:", {
+          customerName,
+          customerEmail,
+          orderTotal,
+          cartItems: cartItems ? cartItems.length : 0,
+        });
+
+        // Verificar se todos os dados necessários estão presentes
+        if (
+          !customerName ||
+          !customerEmail ||
+          isNaN(orderTotal) ||
+          !cartItems ||
+          cartItems.length === 0
+        ) {
+          console.error("Dados incompletos para pagamento");
+
+          // Exibir mensagem de erro
+          paymentErrors.innerHTML = `
+          <div class="error-banner">
+              <strong>Erro:</strong> Informações de pagamento incompletas. 
+              <a href="checkout.html">Volte para a etapa anterior</a> e preencha todos os dados necessários.
+          </div>
+      `;
+
+          // Desabilitar o formulário
+          document.getElementById("payment-form").style.opacity = "0.5";
+          document.getElementById("submit-payment").disabled = true;
+          return;
+        }
+
+        // Atualizar resumo do pedido
+        const cartContainer = document.getElementById("cart-items");
+        const subtotalElement = document.getElementById("subtotal");
+        const totalElement = document.getElementById("total");
+
+        cartContainer.innerHTML = ""; // Limpar conteúdo anterior
+
+        let subtotal = 0;
+        cartItems.forEach((item) => {
+          subtotal += item.price * item.quantity;
+          const itemHtml = `
+          <div class="cart-item">
+              <div class="item-info">
+                  <h3>${item.name}</h3>
+                  <p>${item.description || ""}</p>
+              </div>
+              <div class="item-price">
+                  <span>$${(item.price * item.quantity).toFixed(2)}</span>
+                  <span>${item.quantity}x $${item.price.toFixed(2)}</span>
+              </div>
+          </div>`;
+          cartContainer.innerHTML += itemHtml;
+        });
+
+        subtotalElement.textContent = `$${subtotal.toFixed(2)}`;
+        const deliveryFee = 3.5;
+        const total = subtotal + deliveryFee;
+        totalElement.textContent = `$${total.toFixed(2)}`;
+
+        // Configurar o formulário de pagamento
+        const paymentForm = document.getElementById("payment-form");
+        paymentForm.addEventListener("submit", async (event) => {
+          event.preventDefault();
+          console.log("Formulário de pagamento enviado");
+
+          const submitButton = document.getElementById("submit-payment");
+          const buttonText = document.getElementById("button-text");
+          const cardErrors = document.getElementById("card-errors");
+
+          submitButton.disabled = true;
+          buttonText.textContent = "Processando...";
+          cardErrors.classList.remove("visible");
+
+          try {
+            // Simulação de pagamento para desenvolvimento
+            // Remova este bloco e descomente o código abaixo para usar o Stripe em produção
+            await new Promise(resolve => setTimeout(resolve, 2000)); // Simula atraso de processamento
+            
+            // Gerar ID de pagamento fictício
+            const paymentId = 'pay_' + Math.random().toString(36).substr(2, 9);
+            
+            // Salvar ID do pagamento
+            localStorage.setItem("paymentId", paymentId);
+            
+            // Limpar o carrinho após pagamento bem-sucedido
+            clearCart();
+            
+            window.location.href = "delivery.html";
+          } catch (err) {
+            console.error("Erro no processamento do pagamento:", err);
+
+            // Exibir mensagem de erro
+            cardErrors.textContent =
+              err.message || "Erro ao processar pagamento. Tente novamente.";
+            cardErrors.classList.add("visible");
+
+            // Rolar para o erro
+            cardErrors.scrollIntoView({
+              behavior: "smooth",
+              block: "center",
+            });
+          } finally {
+            // Restaurar o botão
+            submitButton.disabled = false;
+            buttonText.textContent = "Pagar Agora";
+          }
+        });
+      } catch (err) {
+        console.error("Erro ao inicializar a página de pagamento:", err);
+        paymentErrors.innerHTML = `
+      <div class="error-banner">
+          <strong>Erro:</strong> Não foi possível inicializar o sistema de pagamento. 
+          Por favor, tente novamente mais tarde ou entre em contato com o suporte.
+      </div>
+  `;
+      }
+    });
+  </script>
+</body>
+</html>
