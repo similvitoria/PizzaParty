@@ -1,7 +1,9 @@
 import { Request, Response } from "express";
 import { OrderRepository } from "../repositories/orderRepository";
-import { orderSchema, partialOrderSchema } from "../schemas/order";
+import { Order, orderSchema, partialOrderSchema } from "../schemas/order";
 import { ZodError } from "zod";
+import { Customer, customerSchema } from "../schemas/customers";
+import { CustomerRepository } from "../repositories/customerRepository";
 
 const orderRepository = new OrderRepository();
 
@@ -35,8 +37,25 @@ export class OrderController {
     }
 
     async create(req: Request, res: Response): Promise<any> {
+        const { customer, order } = req.body;
+
+        
+        
+        const productsId = order.products.map((x: { id: any; }) => {
+            return x.id;
+        })
+        
+        
         try {
-            const parsed = orderSchema.parse(req.body);
+            const customerID = (await (new CustomerRepository()).findByEmail(customer.email)).id;
+            
+            const parsed = orderSchema.parse({
+                customer_id: customerID,
+                total_price: order.total_price,
+                product_ids: productsId,
+            });
+            console.log(parsed);
+            
             const newOrder = await orderRepository.create(parsed);
             return res.status(201).json(newOrder);
         } catch (error) {

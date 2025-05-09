@@ -1,6 +1,6 @@
 import { Pool } from 'pg'
 import dotenv from 'dotenv';
-dotenv.config({ path: 'src/.env' });
+dotenv.config({ path: '.env' });
 
 const {
     DB_HOST,
