@@ -58,6 +58,45 @@ STRIPE_SECRET_KEY=sua_chave_publica_do_stripe
 
 ### ▶️ Execução
 
+#### 
+
+Crie uma database chamada "pizzaria"  
+Rode este script no PostgreSQL (pgAdmin4) para criar as tabelas do banco de dados  
+```bash
+-- Tabela de produtos
+CREATE TABLE products (
+  id SERIAL PRIMARY KEY,
+  name VARCHAR(255) NOT NULL,
+  description TEXT,
+  category VARCHAR(100),
+  image_path VARCHAR(255),
+  price FLOAT NOT NULL CHECK (price > 0)
+);
+
+-- Tabela de clientes
+CREATE TABLE customers (
+  id SERIAL PRIMARY KEY,
+  name VARCHAR(255) NOT NULL,
+  email VARCHAR(255) UNIQUE NOT NULL,
+  phone VARCHAR(20),
+  address TEXT
+);
+
+-- Criação da tabela orders com campo product_ids (array de inteiros)
+CREATE TABLE orders (
+  id SERIAL PRIMARY KEY,
+  customer_id INTEGER NOT NULL REFERENCES customers(id),
+  total_price FLOAT NOT NULL CHECK (total_price > 0),
+  order_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+  status VARCHAR(20) DEFAULT 'pending' CHECK (
+    status IN ('pending', 'confirmed', 'delivered', 'cancelled')
+  ),
+  product_ids INTEGER[] NOT NULL
+);
+
+
+
+```
 #### Backend (em terminais separados):
 
 ```bash
@@ -71,7 +110,7 @@ npm start
 
 #### Frontend:
 
-Abrir com Live Server:
+Abrir com Live Server:  
 -Clicar com botão direito no arquivo index.html  
 -Open with live server 
 
