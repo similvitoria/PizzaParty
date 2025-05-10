@@ -192,98 +192,250 @@ function renderCartItems() {
 
 // Inicializar página de checkout
 function initCheckout() {
- const continueToPayment = document.getElementById("continue-to-payment");
- if (!continueToPayment) return;
-
- continueToPayment.addEventListener("click", function (e) {
-   e.preventDefault();
-
-   const name = document.getElementById("name").value;
-   const address = document.getElementById("address").value;
-   const phone = document.getElementById("phone").value;
-   const email = document.getElementById("email").value;
-   const instructions = document.getElementById("instructions")?.value || "";
-
-   // Verificar campos obrigatórios
-   if (!name || !address || !phone || !email) {
-     alert("Por favor, preencha todos os campos obrigatórios.");
-     return;
-   }
-
-   // Verificar se o carrinho tem itens
-   if (cart.length === 0) {
-     alert("Seu carrinho está vazio. Adicione itens antes de continuar.");
-     return;
-   }
-
-   // Preparar dados do cliente
-   const customerData = {
-     name: name,
-     email: email,
-     address: address,
-     phone: phone,
-     instructions: instructions,
-   };
-
-   // Calcular o total do pedido
-   const totalPrice =
-     cart.reduce((total, item) => total + item.price * item.quantity, 0) + 3.5; // Adicionando taxa de entrega
-
-   // Preparar dados do pedido
-   const orderData = {
-     products: cart.map((item) => ({
-       id: item.id,
-       name: item.name,
-       description: item.description || "",
-       price: item.price,
-       quantity: item.quantity
-     })),
-     total_price: totalPrice,
-   };
-
-   // Dados completos para enviar ao servidor
-   const data = {
-     customer: customerData,
-     order: orderData,
-   };
-
-   // Salvar informações do cliente no localStorage (para compatibilidade com código existente)
-   localStorage.setItem("customerName", name);
-   localStorage.setItem("customerEmail", email);
-   localStorage.setItem("customerAddress", address);
-   localStorage.setItem("customerPhone", phone);
-   localStorage.setItem("deliveryInstructions", instructions);
-
-   // Enviar dados para o servidor
-   fetch("http://localhost:3000/api/orders", {
-     method: "POST",
-     headers: {
-       "Content-Type": "application/json",
-     },
-     body: JSON.stringify(data),
-   })
-     .then((response) => {
-       if (!response.ok) {
-         throw new Error("Erro ao processar o pedido");
-       }
-       return response.json();
-     })
-     .then((responseData) => {
-       console.log("Resposta do servidor:", responseData);
-
-       // Se você precisar armazenar o ID do pedido retornado pelo servidor
-       if (responseData.id) {
-         localStorage.setItem("orderId", responseData.id);
-       }
-
-       // Redirecionar para a página de entrega
-       window.location.href = "delivery.html";
-     })
-     .catch((error) => {
-       alert("Ocorreu um erro: " + error.message);
-       console.error("Erro:", error);
-     });
- });
+  const continueToPayment = document.getElementById("continue-to-payment");
+  if (!continueToPayment) return;
+  
+  // Elementos do formulário
+  const nameInput = document.getElementById("name");
+  const addressInput = document.getElementById("address");
+  const phoneInput = document.getElementById("phone");
+  const emailInput = document.getElementById("email");
+  const instructionsInput = document.getElementById("instructions");
+  
+  // Objeto para armazenar mensagens de erro
+  const errorMessages = {
+    name: "Por favor, insira seu nome completo (mínimo 3 caracteres).",
+    address: "Por favor, insira um endereço válido (mínimo 10 caracteres).",
+    phone: "Por favor, insira um número de telefone válido (apenas números, mínimo 10 dígitos).",
+    email: "Por favor, insira um endereço de e-mail válido.",
+    emptyCart: "Seu carrinho está vazio. Adicione itens antes de continuar."
+  };
+  
+  // Função para mostrar erro
+  function showError(input, message) {
+    // Remove qualquer mensagem de erro anterior
+    const existingError = input.parentElement.querySelector(".error-message");
+    if (existingError) {
+      existingError.remove();
+    }
+  
+    // Adiciona borda vermelha ao input
+    input.classList.add("error");
+    input.style.borderColor = "#e74c3c";
+    
+    // Cria e adiciona mensagem de erro
+    const errorDiv = document.createElement("div");
+    errorDiv.className = "error-message";
+    errorDiv.textContent = message;
+    errorDiv.style.color = "#e74c3c";
+    errorDiv.style.fontSize = "0.8rem";
+    errorDiv.style.marginTop = "5px";
+    
+    input.parentElement.appendChild(errorDiv);
+  }
+  
+  // Função para remover erro
+  function removeError(input) {
+    input.classList.remove("error");
+    input.style.borderColor = "";
+    const existingError = input.parentElement.querySelector(".error-message");
+    if (existingError) {
+      existingError.remove();
+    }
+  }
+  
+  // Validação de nome
+  function validateName() {
+    const value = nameInput.value.trim();
+    if (value.length < 3) {
+      showError(nameInput, errorMessages.name);
+      return false;
+    }
+    removeError(nameInput);
+    return true;
+  }
+  
+  // Validação de endereço
+  function validateAddress() {
+    const value = addressInput.value.trim();
+    if (value.length < 10) {
+      showError(addressInput, errorMessages.address);
+      return false;
+    }
+    removeError(addressInput);
+    return true;
+  }
+  
+  // Validação de telefone
+  function validatePhone() {
+    const value = phoneInput.value.trim();
+    // Remove caracteres não numéricos para verificação
+    const numericValue = value.replace(/\D/g, '');
+    
+    if (numericValue.length < 10) {
+      showError(phoneInput, errorMessages.phone);
+      return false;
+    }
+    removeError(phoneInput);
+    return true;
+  }
+  
+  // Validação de email
+  function validateEmail() {
+    const value = emailInput.value.trim();
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    
+    if (!emailRegex.test(value)) {
+      showError(emailInput, errorMessages.email);
+      return false;
+    }
+    removeError(emailInput);
+    return true;
+  }
+  
+  // Formatação do telefone enquanto digita
+  if (phoneInput) {
+    phoneInput.addEventListener("input", function(e) {
+      // Remove caracteres não numéricos
+      let value = this.value.replace(/\D/g, '');
+      
+      // Formata o número conforme digita (formato brasileiro)
+      if (value.length > 0) {
+        // Adiciona parênteses para DDD
+        if (value.length <= 2) {
+          value = `(${value}`;
+        } else if (value.length <= 6) {
+          value = `(${value.substring(0, 2)}) ${value.substring(2)}`;
+        } else if (value.length <= 10) {
+          value = `(${value.substring(0, 2)}) ${value.substring(2, 6)}-${value.substring(6)}`;
+        } else {
+          value = `(${value.substring(0, 2)}) ${value.substring(2, 7)}-${value.substring(7, 11)}`;
+        }
+      }
+      
+      this.value = value;
+    });
+  }
+  
+  // Adiciona validação em tempo real para cada campo
+  if (nameInput) nameInput.addEventListener("blur", validateName);
+  if (addressInput) addressInput.addEventListener("blur", validateAddress);
+  if (phoneInput) phoneInput.addEventListener("blur", validatePhone);
+  if (emailInput) emailInput.addEventListener("blur", validateEmail);
+  
+  // Função para preencher campos com dados salvos (se existirem)
+  function fillSavedData() {
+    const savedName = localStorage.getItem("customerName");
+    const savedEmail = localStorage.getItem("customerEmail");
+    const savedAddress = localStorage.getItem("customerAddress");
+    const savedPhone = localStorage.getItem("customerPhone");
+    const savedInstructions = localStorage.getItem("deliveryInstructions");
+  
+    if (savedName && nameInput) nameInput.value = savedName;
+    if (savedEmail && emailInput) emailInput.value = savedEmail;
+    if (savedAddress && addressInput) addressInput.value = savedAddress;
+    if (savedPhone && phoneInput) phoneInput.value = savedPhone;
+    if (savedInstructions && instructionsInput) instructionsInput.value = savedInstructions;
+  }
+  
+  // Preenche campos com dados salvos
+  fillSavedData();
+  
+  continueToPayment.addEventListener("click", function (e) {
+    e.preventDefault();
+  
+    // Valida todos os campos
+    const isNameValid = validateName();
+    const isAddressValid = validateAddress();
+    const isPhoneValid = validatePhone();
+    const isEmailValid = validateEmail();
+  
+    // Se todos os campos são válidos
+    if (isNameValid && isAddressValid && isPhoneValid && isEmailValid) {
+      // Verificar se o carrinho tem itens
+      if (cart.length === 0) {
+        alert(errorMessages.emptyCart);
+        return;
+      }
+  
+      const name = nameInput.value.trim();
+      const address = addressInput.value.trim();
+      const phone = phoneInput.value.trim();
+      const email = emailInput.value.trim();
+      const instructions = instructionsInput ? instructionsInput.value.trim() : "";
+  
+      // Preparar dados do cliente
+      const customerData = {
+        name: name,
+        email: email,
+        address: address,
+        phone: phone,
+        instructions: instructions,
+      };
+  
+      // Calcular o total do pedido
+      const totalPrice =
+        cart.reduce((total, item) => total + item.price * item.quantity, 0) + 3.5; // Adicionando taxa de entrega
+  
+      // Preparar dados do pedido
+      const orderData = {
+        products: cart.map((item) => ({
+          id: item.id,
+          name: item.name,
+          description: item.description || "",
+          price: item.price,
+          quantity: item.quantity
+        })),
+        total_price: totalPrice,
+      };
+  
+      // Dados completos para enviar ao servidor
+      const data = {
+        customer: customerData,
+        order: orderData,
+      };
+  
+      // Salvar informações do cliente no localStorage
+      localStorage.setItem("customerName", name);
+      localStorage.setItem("customerEmail", email);
+      localStorage.setItem("customerAddress", address);
+      localStorage.setItem("customerPhone", phone);
+      localStorage.setItem("deliveryInstructions", instructions);
+  
+      // Enviar dados para o servidor
+      fetch("http://localhost:3000/api/orders", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(data),
+      })
+        .then((response) => {
+          if (!response.ok) {
+            throw new Error("Erro ao processar o pedido");
+          }
+          return response.json();
+        })
+        .then((responseData) => {
+          console.log("Resposta do servidor:", responseData);
+  
+          // Se você precisar armazenar o ID do pedido retornado pelo servidor
+          if (responseData.id) {
+            localStorage.setItem("orderId", responseData.id);
+          }
+  
+          // Redirecionar para a página de entrega
+          window.location.href = "delivery.html";
+        })
+        .catch((error) => {
+          alert("Ocorreu um erro: " + error.message);
+          console.error("Erro:", error);
+        });
+    } else {
+      // Exibe mensagem geral de erro
+      alert("Por favor, corrija os erros no formulário antes de continuar.");
+    }
+  });
 }
 
 // Inicializar página de confirmação
