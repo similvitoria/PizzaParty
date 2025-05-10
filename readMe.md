@@ -60,8 +60,8 @@ STRIPE_SECRET_KEY=sua_chave_publica_do_stripe
 
 #### 
 
-Crie uma database chamada "pizzaria"  
-Rode este script no PostgreSQL (pgAdmin4) para criar as tabelas do banco de dados  
+Crie uma database chamada "pizzaria" no PostgreSQL (pgAdmin4) para criar o banco de dados  
+Rode este script                     no PostgreSQL (pgAdmin4) para criar as tabelas do banco de dados     
 ```bash
 -- Tabela de produtos
 CREATE TABLE products (
