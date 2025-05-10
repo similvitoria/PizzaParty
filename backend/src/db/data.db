@@ -1,0 +1,34 @@
+-- Inserindo Pizzas
+INSERT INTO products (name, description, category, image_path, price) VALUES
+('Pepperoni Popper', 'Dupla camada de pepperoni, mussarela, molho marinara picante, pimenta vermelha moída, azeitonas pretas', 'Pizzas', 'images/pepperoni_popper.avif', 14.99),
+('Garlic Supreme', 'Dentes de alho assados, cebolas caramelizadas, mussarela, parmesão, molho Alfredo, salsinha fresca', 'Pizzas', 'images/garlic_supreme.avif', 13.99),
+('Margarita Muse', 'Mussarela fresca, tomates maduros, folhas de manjericão, azeite extra virgem, sal marinho, molho marinara', 'Pizzas', 'images/marguerita_muse.avif', 12.99),
+('Quatro Queijos', 'Mussarela, provolone, parmesão, gorgonzola, tomate seco, orégano', 'Pizzas', 'images/quatro_queijos.avif', 15.99),
+('Calabresa Especial', 'Calabresa artesanal, cebola, azeitonas, mussarela, molho de tomate', 'Pizzas', 'images/quatro_queijos.avif', 13.99);
+
+-- Inserindo Massas
+INSERT INTO products (name, description, category, image_path, price) VALUES
+('Primavera Veggie', 'Espaguete, vegetais da estação (abobrinha, pimentão, brócolis, tomate cereja), alho, azeite, parmesão', 'Massas', 'images/veggie_primavera.avif', 16.99),
+('Penne ao Molho Pesto', 'Penne, molho pesto (manjericão, alho, pinoli, azeite), tomate cereja, queijo grana padano', 'Massas', 'images/penne.avif', 15.50),
+('Fettuccine Alfredo', 'Fettuccine, molho cremoso de parmesão, manteiga, creme de leite, noz-moscada', 'Massas', 'images/alfredo.avif', 16.50);
+
+-- Inserindo Acompanhamentos
+INSERT INTO products (name, description, category, image_path, price) VALUES
+('Pão de Alho', 'Pão italiano com manteiga de alho assada, queijo parmesão e salsinha', 'Acompanhamentos', 'images/garlic_bread.avif', 8.99),
+('Ceasar Salad', 'Alface romana, croutons, queijo parmesão, molho Caesar tradicional', 'Acompanhamentos', 'images/ceasar_sald.avif', 10.99),
+('Batata Rústica', 'Batata rústica frita, bacon crocante, queijo cheddar derretido, cebolinha', 'Acompanhamentos', 'images/loaded_potato.avif', 9.50),
+('Sticks Muzzarella - 6 unidades', 'Palitos de queijo mussarela empanados, molho marinara para mergulhar', 'Acompanhamentos', 'images/muzzarella_sticks.avif', 7.99);
+
+-- Inserindo Sobremesas
+INSERT INTO products (name, description, category, image_path, price) VALUES
+('Cheesecake de Frutas Vermelhas', 'Cheesecake clássico com cobertura de frutas vermelhas frescas', 'Sobremesas', 'images/strawberry_cheesecake.avif', 12.99),
+('Tiramisu', 'Clássico tiramisù italiano com café, mascarpone e cacau em pó', 'Sobremesas', 'images/tiramisu.avif', 17.99),
+('Pizza de Nutella', 'Massa de pizza, pasta de Nutella, açúcar de confeiteiro, morangos (opcional), chantilly', 'Sobremesas', 'images/nutella_pizza.avif', 20.50);
+
+-- Inserindo Bebidas
+INSERT INTO products (name, description, category, image_path, price) VALUES
+('Refrigerante (Lata)', 'Coca-Cola, Pepsi, Guaraná, Fanta', 'Bebidas', NULL, 2.50),
+('Suco Natural (500ml)', 'Laranja, Maracujá, Limão, Abacaxi com Hortelã', 'Bebidas', NULL, 5.50),
+('Água Mineral (500ml)', 'Com ou sem gás', 'Bebidas', NULL, 2.00),
+('Cerveja Artesanal (355ml)', 'Seleção de cervejas locais (IPA, Pilsen, Weiss)', 'Bebidas', NULL, 7.99),
+('Vinho da Casa (Taça)', 'Tinto ou branco - seleção especial', 'Bebidas', NULL, 9.50);
