@@ -23,42 +23,35 @@ O **Pizza Party** é um sistema completo de gerenciamento de pizzaria, incluindo
 
 ### 📦 Instalação
 
+git clone https://github.com/similvitoria/PizzaParty
+
 #### Backend
 
-```bash
-git clone <url-do-repositorio>
-cd pizza-party-backend
+```env
+cd PizzaParty/backend
 npm install
 ```
 
 #### Frontend
 
-```bash
-cd ../pizza-party-frontend
+```env
+cd ../PizzaParty/frontend
 npm install
 ```
 
----
-
-### ⚙️ Configuração
+#### ⚙️ Configuração
 
 #### Backend (`.env`)
 
+Criar um arquivo .env na pasta backend e colocar o seguinte:
+Obs: é necessário ter uma conta no STRIPE para usar a chave pública
 ```env
 DB_HOST=localhost
 DB_PORT=5432
-DB_USER=postgres
-DB_PASSWORD=senha123
+DB_USER=seu_usuario_postgres
+DB_PASSWORD=sua_senha_do_postgres
 DB_NAME=pizzaria
-STRIPE_SECRET_KEY=sua_chave_secreta_do_stripe
-```
-
-#### Frontend (`.env`)
-
-```env
-REACT_APP_API_URL=http://localhost:3001
-REACT_APP_STRIPE_API_URL=http://localhost:3000
-REACT_APP_STRIPE_PUBLIC_KEY=sua_chave_publica_do_stripe
+STRIPE_SECRET_KEY=sua_chave_publica_do_stripe
 ```
 
 ---
@@ -69,17 +62,18 @@ REACT_APP_STRIPE_PUBLIC_KEY=sua_chave_publica_do_stripe
 
 ```bash
 # API Principal
-npx ts-node src/index.ts
+cd backend
+npm run dev
 
 # API de Pagamentos
-node server.js
+npm start
 ```
 
 #### Frontend:
 
-```bash
-npm start
-```
+Abrir com Live Server:
+-Clicar com botão direito no arquivo index.html
+-Open with live server 
 
 Acesse: [http://localhost:3000](http://localhost:3000)
 
