@@ -72,10 +72,8 @@ npm start
 #### Frontend:
 
 Abrir com Live Server:
--Clicar com botão direito no arquivo index.html
+-Clicar com botão direito no arquivo index.html  
 -Open with live server 
-
-Acesse: [http://localhost:3000](http://localhost:3000)
 
 ---
 
@@ -117,7 +115,7 @@ src/
 2. Dados são enviados para a API principal  
 3. Pagamento é processado via API Stripe  
 4. Pedido é registrado no banco de dados  
-5. Cliente acompanha entrega em tempo real  
+5. A rota de entrega é apresentada ao cliente
 
 ---
 
@@ -189,22 +187,6 @@ Exemplo de corpo da requisição:
 
 - O frontend usa `localStorage` para simular carrinho  
 - O backend possui validações completas  
-
-### Produção
-
-- Configure CORS adequadamente  
-- Implemente autenticação para APIs  
-
----
-
-## 📈 Próximos Passos
-
-- Implementar autenticação JWT  
-- Criar painel administrativo  
-- Adicionar sistema de avaliações  
-- Implementar push notifications  
-
----
 
 ## 🤝 Contribuição
 
