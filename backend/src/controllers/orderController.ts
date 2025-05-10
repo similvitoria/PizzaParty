@@ -37,17 +37,17 @@ export class OrderController {
     }
 
     async create(req: Request, res: Response): Promise<any> {
-        const { customer, order } = req.body;
-
-        
+        const { customer, order } = req.body;        
         
         const productsId = order.products.map((x: { id: any; }) => {
-            return x.id;
+            return parseInt(x.id);
         })
-        
-        
+
         try {
-            const customerID = (await (new CustomerRepository()).findByEmail(customer.email)).id;
+            const temp = ((await (new CustomerRepository()).findByEmail(customer.email)));
+            let customerID = temp !== undefined ? temp.id : (await (new CustomerRepository()).create(customer)).id;
+            
+            console.log(customerID);
             
             const parsed = orderSchema.parse({
                 customer_id: customerID,
